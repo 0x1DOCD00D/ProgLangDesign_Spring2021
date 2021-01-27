@@ -22,12 +22,12 @@ Once you installed and configured IntelliJ you should be able to clone [the cour
 
 ```scala
 //example definition of a macro
-Macro(MacroName(“someName”), Multiply(Add(Variable(“var”), Value(1)), Value(3)))
+Macro(MacroName("someName"), Multiply(Add(Variable("var"), Value(1)), Value(3)))
 //examples of a variable assignment with scope
-Assign(Variable(“somevar”), Add(Variable(“var”), Macro(“someName”)))
-Let(Assign(Variable(“var2”), Add(Variable(“var”), Macro(“someName”)))) In Add(Variable(“var2”), Value(1))
+Assign(Variable("somevar"), Add(Variable("var"), Macro("someName")))
+Let(Assign(Variable("var2"), Add(Variable("var"), Macro("someName")))) In Add(Variable("var2"), Value(1))
 //examples of scope definition and use
-Scope(“scopename”, Scope(“othername”, Assign(Variable(“somevar”), Add(Variable(“var”), Macro(“someName”)))))
+Scope("scopename", Scope("othername", Assign(Variable("somevar"), Add(Variable("var"), Macro("someName")))))
 ```
 Scopes can be created dynamically as part of the expressions in addition to being predefined in the environment. Macros will use lazy evaluation to substitute the expression for a given macro name in the expression where the macro name is used.
 
