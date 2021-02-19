@@ -3,7 +3,7 @@ import scala.concurrent.duration.Deadline;
 import java.util.ArrayList;
 import java.util.List;
 
-public class University {
+public abstract class University {
     public class Department{
         public String deptName = "";
         public Department(String name){
@@ -17,4 +17,5 @@ public class University {
     public void createNewDepartment(String name){
         departmentList.add(new Department(name));
     }
+    public abstract int typeOfLandOwnership();
 }
