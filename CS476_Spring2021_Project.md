@@ -3,10 +3,33 @@
 ### Grade: 35%
 
 ## Preliminaries
-As part of this course you will gain hands-on experience with a programming language optimization technique called partial evaluation for the simple language for specifying and evaluating arithmetic expressions that you created as part of your homeworks. All logistic rules are applicable from the previous homeworks about creating your GitHub repository and submitting your homework solution. Please follow this naming convention for your GitHub repo while submitting this course project: "Group<Number>_cs476_Project" without quotes, where you specify your group number as an integer in place of <Number> and you will specify the first and last names of the group members **exactly as you are registered with the University system** in the submission file README.md, so that we can easily recognize your submission. Then invite me, your course instructor as your collaborator, my github ID is 0x1DOCD00D. 
+As part of this course you will gain hands-on experience with a programming language optimization technique called partial evaluation for the simple language for specifying and evaluating arithmetic expressions that you created as part of your homeworks. All logistic rules are applicable from the previous homeworks about creating your GitHub repository and submitting your solution. **This is a group project,** with at least one and at most five members allowed in a group. Each student can participate in at most one group; enrolling in more than one group will result in the grade zero. Each group will select a group leader who will create a github repository and will invite the other group classmates with the write access to that repo. Each submission will include the names of all groupmates in the README.md and all groupmates will receive the same grade for this course project submission. Group leaders with successful submissions and good quality work will receive an additional 2% bonus for their management skills - it applied only to groups with more than two members.
+
+Please follow this naming convention for your GitHub repo while submitting this course project: "Group<Number>_cs476_Project" without quotes, where you specify your group number as an integer in place of <Number> and you will specify the first and last names of the group members **exactly as you are registered with the University system** in the submission file README.md, so that we can easily recognize your submission. Then invite me, your course instructor as your collaborator, my github ID is 0x1DOCD00D. I repeat, make sure that you will give the course instructor the read access to *your private project repository*.
 
 ## Overview
-In your first homework assignment you created a simple arithmetic expression evaluation language embedded in Scala for multiplication and addition that uses a dynamically updated environment to specify values for variables with computing and storing results of the evaluation of arithmetic expressions in variables and using them in different scopes. Also, you created macros that allow programmers to expand macro definitions in the expressions where the macro names are used. In this homework you will build on the language and its features created in your first homework. The requirements for this homework below is an outline - you can add more interesting features to your language for additional bonus points. Alternatively, if you implement only a subset of the required features please make sure to specify it in your documentation. This homework script is written using a retroscripting technique, in which the homework outlines are generally and loosely drawn, and the individual students improvise to create the implementation that fits their refined objectives. In doing so, students are expected to stay within the basic requirements of the homework and they are free to experiments. Asking questions is important, so please ask away at Piazza!
+In your homework assignments you created a simple arithmetic expression evaluation language embedded in Scala for multiplication and addition that uses a dynamically updated environment to specify values for variables with computing and storing results of the evaluation of arithmetic expressions in variables and using them in different scopes as well as dynamic dispatch algorithms for resolving method invocations at runtime. In this course project you will work on adding an optimization for partial evaluation - that allow undefined variables during evaluation while preserve syntactical form of the expressions. Consider the following example of partial evaluation.
+```scala
+Multiply(Value(3), Multiply(Add(Value(5), Value(1)), Variable("var")))
+```
+The result of the partial evaluation of this expression would not be a value but the following new expression. 
+```scala
+Multiply(Value(3), Multiply(Value(6), Variable("var")))
+```
+
+```scala
+//examples of a variable assignment with scope
+Assign(Variable("somevar"), Add(Variable("var"), Macro("someName")))
+Let(Assign(Variable("var2"), Add(Variable("var"), Macro("someName")))) In Add(Variable("var2"), Value(1))
+//examples of scope definition and use
+Scope("scopename", Scope("othername", Assign(Variable("somevar"), Add(Variable("var"), Macro("someName")))))
+```
+
+
+
+
+
+This homework script is written using a retroscripting technique, in which the homework outlines are generally and loosely drawn, and the individual students improvise to create the implementation that fits their refined objectives. In doing so, students are expected to stay within the basic requirements of the homework and they are free to experiments. Asking questions is important, so please ask away at Piazza!
 
 ## Functionality
 We have studied extensively the meaning of inheritance and dynamic dispatch and how it is implemented using the GNU and Borland layouts. We have learned that a class is a named scope that contains variable and method definitions and it may contain nested classes. Inheritance is used as a mechanism for software reuse, so that when a class extends some superclass it inherits its methods and new ones can be added to the subclass. In this homework, class methods can contain arithmetic expressions and the return value of a method is the value of the last expression that is contained in the method. It is up to you to decide how you can allow programmers to invoke the methods of the superclasses and what the semantics of the empty methods is. For additional point you can extend the language to enable upcasting and down casting.
