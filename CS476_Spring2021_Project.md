@@ -39,30 +39,19 @@ Assign(Variable("somevar"), Add(Variable("var"), Value(3)))
 This homework script is written using a retroscripting technique, in which the homework outlines are generally and loosely drawn, and the individual students improvise to create the implementation that fits their refined objectives. In doing so, students are expected to stay within the basic requirements of the homework and they are free to experiments. Asking questions is important, so please ask away at Piazza!
 
 ## Functionality
-We have studied extensively the meaning of inheritance and dynamic dispatch and how it is implemented using the GNU and Borland layouts. We have learned that a class is a named scope that contains variable and method definitions and it may contain nested classes. Inheritance is used as a mechanism for software reuse, so that when a class extends some superclass it inherits its methods and new ones can be added to the subclass. In this homework, class methods can contain arithmetic expressions and the return value of a method is the value of the last expression that is contained in the method. It is up to you to decide how you can allow programmers to invoke the methods of the superclasses and what the semantics of the empty methods is. For additional point you can extend the language to enable upcasting and down casting.
+To make partial evaluation more interesting you will introduce a new conditional construct in your language that allows programmers to specify conditions and to evaluate the corresponding branches. Consider the following examples of this construct.
 
 ```scala
-//example definitions of a class
-Class("Base")
-Class("Derived", Extends(Class("Base")))
-Extends(Class("Derived"), Class("Base"))
-
-//example declaration of class variables
-Class("Derived", List(ClassVar("v1", VarType("int")), ClassVar("v2", VarType("string")))
-
-//example definition of class methods
-Method(Class("Base"), MethodName("m1"), List(Parameter("p1", ParamType("int")), Parameter("p2", ParamType("string"))), List(Assign(Variable("somevar"), Add(Variable("var"), Macro("someName"))), Let(Assign(Variable("var2"), Add(Variable("var"), Macro("someName")))) In Add(Variable("var2"), Value(1)))) 
-
-//example of the instantiation of a class
-val instance = CreateNew(Class("Derived"))
-
-//example of the invocation of a method
-val result = instance.InvokeMethod("m1", List(("p1", 1), ("p2", "howdy!"))
-
-//examples of defining nested classes
-Class("Base", Class("Nested"))
-Class("Derived", Class("Inner1st", Class("Inner2nd")))
-
+//example definitions of the conditional construct IFTRUE
+IFTRUE(Multiply(Value(15), Variable("var")) GREATEREQUAL Add(Value(2), Variable("var1"))) THENEXECUTE( 
+  Assign(Variable("somevar"), Add(Variable("var"), Value(3))) )
+ELSERUN (
+  Class("Derived", Extends(Class("Base")))
+  Extends(Class("Derived"), Class("Base"))
+  Class("Derived", List(ClassVar("v1", VarType("int")), ClassVar("v2", VarType("string")))
+  val instance = CreateNew(Class("Derived"))
+  val result = instance.InvokeMethod("m1", List(("p1", 1), ("p2", "howdy!"))
+)
 ```
 In your language, programs are evaluated using the function **evaluate** that you created in your first homework. You can decide whether you want to evaluate expressions only to integer values or you may extend evaluations to other types, e.g., strings and floats. Handling nested classes is not much different from handling nested scopes - you will define your own rules for accessing variables and methods in nested classes and for accessing methods and variables of the superclasses from subclasses and of the outer classes from the nested classes. Correspondingly, you will maintain the environment for mapping variables to values and for implementing your scoping rules. 
 
