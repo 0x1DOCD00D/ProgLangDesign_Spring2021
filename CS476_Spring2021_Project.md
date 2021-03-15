@@ -8,7 +8,7 @@ As part of this course you will gain hands-on experience with a programming lang
 Please follow this naming convention for your GitHub repo while submitting this course project: "Group<Number>_cs476_Project" without quotes, where you specify your group number as an integer in place of <Number> and you will specify the first and last names of the group members **exactly as you are registered with the University system** in the submission file README.md, so that we can easily recognize your submission. Then invite me, your course instructor as your collaborator, my github ID is 0x1DOCD00D. I repeat, make sure that you will give the course instructor the read access to *your private project repository*.
 
 ## Overview
-In your homework assignments you created a simple arithmetic expression evaluation language embedded in Scala for multiplication and addition that uses a dynamically updated environment to specify values for variables with computing and storing results of the evaluation of arithmetic expressions in variables and using them in different scopes as well as dynamic dispatch algorithms for resolving method invocations at runtime. In this course project you will work on adding an optimization for partial evaluation - that allow undefined variables during evaluation while preserve syntactical form of the expressions. Consider the following example of partial evaluation.
+In your homework assignments you created a simple arithmetic expression evaluation language embedded in Scala for multiplication and addition that uses a dynamically updated environment to specify values for variables with computing and storing results of the evaluation of arithmetic expressions in variables and using them in different scopes as well as dynamic dispatch algorithms for resolving method invocations at runtime. In this course project you will work on adding an optimization for partial evaluation, a programming language technique that allow undefined variables to remain in expressions during evaluation while preserving the syntactical form of the expressions. Consider the following example of partial evaluation.
 ```scala
 Multiply(Value(3), Multiply(Add(Value(5), Value(1)), Variable("var")))
 ```
@@ -17,12 +17,19 @@ The result of the partial evaluation of this expression would not be a value but
 Multiply(Value(3), Multiply(Value(6), Variable("var")))
 ```
 
+A more interesting example of partial evaluation includes the use of the operator associativity property.
+```scala
+Multiply(Value(3), Multiply(Value(5), Variable("var")))
+```
+The result of the partial evaluation of this expression is the following new expression. 
+```scala
+Multiply(Value(15), Variable("var"))
+```
+
+In case of the assignment expression the variable **somevar** will be assigned the corresponding expression on the right-hand side instead of a value in the environment table.
 ```scala
 //examples of a variable assignment with scope
-Assign(Variable("somevar"), Add(Variable("var"), Macro("someName")))
-Let(Assign(Variable("var2"), Add(Variable("var"), Macro("someName")))) In Add(Variable("var2"), Value(1))
-//examples of scope definition and use
-Scope("scopename", Scope("othername", Assign(Variable("somevar"), Add(Variable("var"), Macro("someName")))))
+Assign(Variable("somevar"), Add(Variable("var"), Value(3)))
 ```
 
 
