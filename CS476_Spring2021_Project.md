@@ -43,7 +43,7 @@ To make partial evaluation more interesting you will introduce a new conditional
 
 ```scala
 //example definitions of the conditional construct IFTRUE
-IFTRUE(Multiply(Value(15), Variable("var")) GREATEREQUAL Add(Value(2), Variable("var1"))) THENEXECUTE( 
+Assign("Variable("lhs"), IFTRUE(Multiply(Value(15), Variable("var")) GREATEREQUAL Add(Value(2), Variable("var1"))) THENEXECUTE( 
   Assign(Variable("somevar"), Add(Variable("var"), Value(3))) )
 ELSERUN (
   Class("Derived", Extends(Class("Base")))
@@ -51,11 +51,12 @@ ELSERUN (
   Class("Derived", List(ClassVar("v1", VarType("int")), ClassVar("v2", VarType("string")))
   val instance = CreateNew(Class("Derived"))
   val result = instance.InvokeMethod("m1", List(("p1", 1), ("p2", "howdy!"))
-)
+) )
 ```
-In your language, programs are evaluated using the function **evaluate** that you created in your first homework. You can decide whether you want to evaluate expressions only to integer values or you may extend evaluations to other types, e.g., strings and floats. Handling nested classes is not much different from handling nested scopes - you will define your own rules for accessing variables and methods in nested classes and for accessing methods and variables of the superclasses from subclasses and of the outer classes from the nested classes. Correspondingly, you will maintain the environment for mapping variables to values and for implementing your scoping rules. 
 
-Your homework can be divided roughly into five steps. First, you will decide on the semantics of inheritance and dynamic dispatch for your language. Second, you will design your own OO language extension using the example with case classes shown above. You will add the logic for evaluating method invocations on class instances. Next, you will create an implementation of nested classes with scoping rules for obscuring and shadowing that you define to resolve the values of class variables, which have the same names in nested classes. Fourth, you will create the dynamic dispatch mechanism to determine which methods are invoked on class instances. Finally, you will create Junit or Flatspec tests to verify the correctness of your implementation. You will write a short report to explain your implementation and the semantics of your language -- if the your code is commented well, it could be used as the report for evaluating your homework. 
+With conditional expressions both the **IFTRUE** and **ELSERUN** branches should be partially evaluated, since it is not known what branch will be taken when all values are supplied for the remaining undefined variables. As before, in your language, programs are evaluated using the function **evaluate** that you created in your homeworks. Also, you can decide whether you want to evaluate expressions only to integer values or you may extend evaluations to other types, e.g., strings and floats. 
+
+Your course project can be divided roughly into five steps. First, you will decide on the semantics of inheritance and dynamic dispatch for your language. Second, you will design your own OO language extension using the example with case classes shown above. You will add the logic for evaluating method invocations on class instances. Next, you will create an implementation of nested classes with scoping rules for obscuring and shadowing that you define to resolve the values of class variables, which have the same names in nested classes. Fourth, you will create the dynamic dispatch mechanism to determine which methods are invoked on class instances. Finally, you will create Junit or Flatspec tests to verify the correctness of your implementation. You will write a short report to explain your implementation and the semantics of your language -- if the your code is commented well, it could be used as the report for evaluating your homework. 
 
 ## Baseline
 Your absolute minimum gradeable baseline project should include the constructs Class, Extends, CreateNew, InvokeMethod, Parameter, Method, ClassVar and VarType or their equivalents and their evaluations in the corresponding function evaluate. Your project should be buildable using the SBT, and your documentation must specify how you create and evaluate expressions in your language with appropriate test cases. Extensively commenting your code and using descriptive names for program entities are considered good programming practices for code comprehension; if your code is easy to read with sufficient comments explaining the semantics of your language constructs, I will accept it as your official homework documentation.
