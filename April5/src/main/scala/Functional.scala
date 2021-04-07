@@ -44,5 +44,37 @@ object PlayWithFunctions {
       val b = 2
       (input:Int) => input*input*b
     }
+
+
+  def doIt(bodyScope: => Unit) = {
+    val cntr = 0
+    new {
+      def `repeat this loop until this condition is satisfied`(cond: => Boolean,term:Int): Unit = {
+        bodyScope
+        if(cond || cntr > term) `repeat this loop until this condition is satisfied`(cond,cntr+1)
+        else ()
+      }
+    }
+  }
+
+    breakable {
+      val x = 2
+      doIt {
+        println("howdy, cs476")
+        if(x==2) break
+      } `repeat this loop until this condition is satisfied`(x == 2, 100)
+    }
+
+    def break = throw Exception
+
+    def breakable(command: =>Unit): Unit = {
+      try {
+        command
+      } catch {
+        case e:Exception => //whatever
+
+      }
+    }
+
   }
 }
