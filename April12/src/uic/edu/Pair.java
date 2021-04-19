@@ -25,8 +25,8 @@ public class Pair<T> {
     }
 
     public static void main(String[] args) {
-        Pair<Object> p = new Pair<Object>("TTH", "CS476");
+        Pair p = new Pair<Object>("TTH", 2);
         System.out.println(p.first() + " " + p.second());
-        for (String s : p.stringList()) System.out.print(s + " ");
+        for (Object s : p.stringList()) System.out.print(s + " ");
     }
 }

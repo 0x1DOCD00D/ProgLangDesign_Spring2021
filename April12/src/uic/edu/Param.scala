@@ -23,4 +23,15 @@ object CompareStuff extends App {
   }
 
   println(variable)
+
+  trait Magnet[T]
+  class MagnetInt extends Magnet[Int]
+  class MagnetString extends Magnet[String]
+
+  class ExperimentTypeErasure {
+    //learn how to use the pattern Magnet in Scala
+    //def meth(input: Magnet):Boolean
+//    def meth(input: Ordering[Int]):Boolean = ???
+    def meth(input: Ordering[String]):Boolean = ???
+  }
 }

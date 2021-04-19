@@ -11,7 +11,7 @@ public class M<T extends Exception> {
         try {
             new M<RuntimeException>().throwIt(new SQLException());
 
-        } catch(final SQLException ex){
+        } catch(final Exception ex){
 
             ex.printStackTrace();
         }
